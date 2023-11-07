@@ -233,6 +233,7 @@ class _ChatPageState extends State<ChatPage> {
           showUserAvatars: true,
           showUserNames: true,
           user: _user,
+          enableBubbleAnimation: false,
         ),
       );
 }

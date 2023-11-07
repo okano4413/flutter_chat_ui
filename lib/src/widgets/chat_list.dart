@@ -24,6 +24,7 @@ class ChatList extends StatefulWidget {
     this.scrollPhysics,
     this.typingIndicatorOptions,
     required this.useTopSafeAreaInset,
+    this.enableBubbleAnimation = true,
   });
 
   /// A custom widget at the bottom of the list.
@@ -68,6 +69,8 @@ class ChatList extends StatefulWidget {
   /// Whether to use top safe area inset for the list.
   final bool useTopSafeAreaInset;
 
+  /// Whether to enable bubble animation.
+  final bool enableBubbleAnimation;
   @override
   State<ChatList> createState() => _ChatListState();
 }
@@ -286,7 +289,7 @@ class _ChatListState extends State<ChatList>
             ),
             SliverPadding(
               padding: const EdgeInsets.only(bottom: 4),
-              sliver: SliverAnimatedList(
+              sliver: widget.enableBubbleAnimation ? SliverAnimatedList(
                 findChildIndexCallback: (Key key) {
                   if (key is ValueKey<Object>) {
                     final newIndex = widget.items.indexWhere(
@@ -302,7 +305,9 @@ class _ChatListState extends State<ChatList>
                 key: _listKey,
                 itemBuilder: (_, index, animation) =>
                     _newMessageBuilder(index, animation),
-              ),
+              ) : SliverList.builder(
+                itemCount: widget.items.length,
+                itemBuilder: (_, index) => widget.itemBuilder(widget.items[index], index),),
             ),
             SliverPadding(
               padding: EdgeInsets.only(

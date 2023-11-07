@@ -101,6 +101,7 @@ class Chat extends StatefulWidget {
     this.useTopSafeAreaInset,
     this.videoMessageBuilder,
     this.slidableMessageBuilder,
+    this.enableBubbleAnimation = true,
   });
 
   /// See [Message.audioMessageBuilder].
@@ -277,6 +278,9 @@ class Chat extends StatefulWidget {
 
   /// See [Message.showUserAvatars].
   final bool showUserAvatars;
+
+  /// See [ChatList.enableBubbleAnimation].
+  final bool enableBubbleAnimation;
 
   /// Show user names for received messages. Useful for a group chat. Will be
   /// shown only on text messages.
@@ -644,6 +648,7 @@ class ChatState extends State<Chat> {
                                         widget.typingIndicatorOptions,
                                     useTopSafeAreaInset:
                                         widget.useTopSafeAreaInset ?? isMobile,
+                                    enableBubbleAnimation: widget.enableBubbleAnimation,
                                   ),
                                 ),
                               ),
